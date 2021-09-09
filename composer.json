@@ -1,7 +1,7 @@
 {
     "description": "CiFireCMS Installer",
     "name": "cifirecms/installer",
-    "type": "project",
+    "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/CiFireCMS",
     "support": {
