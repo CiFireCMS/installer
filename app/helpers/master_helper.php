@@ -32,9 +32,12 @@ $content = <<<EOS
 | a PHP script and you can easily do that on your own.
 |
 */
-if (empty(\$_SERVER['BASE_URL'])) {
+if (empty(\$_SERVER['BASE_URL']))
+{
     \$config['base_url'] = (\$_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://{\$_SERVER['HTTP_HOST']}" . str_replace(basename(\$_SERVER['SCRIPT_NAME']), "", \$_SERVER['SCRIPT_NAME']);
-} else {
+} 
+else
+{
     \$config['base_url'] = \$_SERVER['BASE_URL'];
 }
 
@@ -151,7 +154,7 @@ if (empty(\$_SERVER['BASE_URL'])) {
 | Note: This will NOT disable or override the CodeIgniter-specific
 | autoloading (application/config/autoload.php)
 */
-\$config['composer_autoload'] = FCPATH.'vendor/autoload.php';
+\$config['composer_autoload'] = 'vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
