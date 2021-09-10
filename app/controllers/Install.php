@@ -403,7 +403,7 @@ class Install extends CI_Controller
 	protected function _create_file_config($configs) 
 	{
 		$content = cfile($configs);
-		$file = FCPATH.'l-app/config/config.php';
+		$file = FCPATH.'app/config/config.php';
 		write_file($file, $content);
 	}
 
