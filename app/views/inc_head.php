@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>CiFireCMS Installation Page</title>
-    <link rel="shortcut icon" href="<?=site_url('l-content/favicon/favicon.png');?>" />
+    <link rel="shortcut icon" href="<?=site_url('favicon.png');?>" />
     <style type="text/css">
 		/*
 		 * Bootstrap v3.3.7 (http: //getbootstrap.com)
