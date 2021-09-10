@@ -45,8 +45,8 @@ CREATE TABLE `t_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `t_comment` (`id`, `id_user`, `id_post`, `parent`, `name`, `email`, `comment`, `date`, `ip`, `active`) VALUES
-(1, 0, 4, 0, 'Adiman', 'adiman@cifirecms.local', 'Wah, lagi bahas makanan ya..? Enak juga tuh tinutuan kalo campur abon cakalang. hehe...', '2019-12-20 23:55:19', '127.0.0.1', 'Y'),
-(2, 0, 2, 0, 'Livia', 'livia@cifirecms.local', 'Rumahku istanaku, jadi rindu kampung halaman yang jauh dimata namun tetap melekat dihati.', '2019-12-20 23:56:13', '127.0.0.1', 'Y');
+(1, 0, 4, 0, 'Adiman', 'adiman@cifirecms.local', 'Wah, lagi bahas makanan ya..? Enak juga tuh tinutuan kalo campur abon cakalang. hehe...', '2019-13-10 13:15:29', '127.0.0.1', 'Y'),
+(2, 0, 2, 0, 'Irha', 'irha@cifirecms.local', 'Rumahku istanaku, jadi rindu kampung halaman yang jauh dimata namun tetap melekat dihati.', '2019-12-20 23:56:13', '127.0.0.1', 'Y');
 
 DROP TABLE IF EXISTS `t_component`;
 CREATE TABLE `t_component` (
@@ -137,7 +137,7 @@ INSERT INTO `t_menu` (`id`, `parent_id`, `title`, `url`, `class`, `position`, `g
 (26, 0, 'Tekno', 'category/tekno', '', 1, 2, 'Y'),
 (27, 0, 'Sport', 'category/sport', '', 1, 2, 'Y'),
 (28, 0, 'Gallery', 'gallery', '', 1, 2, 'Y'),
-(29, 0, 'Index Post', 'index-post', '', 1, 2, 'Y'),
+(29, 0, 'Index Post', 'indexpost', '', 1, 2, 'Y'),
 (30, 0, 'RSS', 'rss', '', 1, 2, 'Y');
 
 DROP TABLE IF EXISTS `t_menu_group`;
