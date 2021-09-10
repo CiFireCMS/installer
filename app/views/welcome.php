@@ -1,8 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div id="container">
 	<div class="text-center">
-		<h2>CiFireCMS</h2>
-		<h4>Welcome to Installation Page</h4>
+		<h4>Welcome to CiFireCMS Installation Page</h4>
 	</div>
 	<div class="license">
 		<div id="body">
