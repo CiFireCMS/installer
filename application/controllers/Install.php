@@ -10,11 +10,12 @@ class Install extends CI_Controller
 		parent::__construct();
 		date_default_timezone_set('Asia/Jakarta');
 		$this->CI =& get_instance();
-
 		$this->key = md5(date('dmYhis').random_string(16));
 		$this->encryption->initialize(array(
 			'key' => hex2bin($this->key)
 		));
+
+		$this->app_path = FCPATH.'app/';
 	}
 
 
@@ -365,13 +366,23 @@ class Install extends CI_Controller
 				{
 					$this->db->trans_commit();
 
+
+					$this->_create_file_dbconfig(array(
+						'db_port' => $_POST['db_port'],
+						'db_host' => $_POST['db_host'],
+						'db_name' => $_POST['db_name'],
+						'db_user' => $_POST['db_user'],
+						'db_pass' => $_POST['db_pass']
+					));
+
 					$this->_create_file_config(array(
 						'key' => $this->key,
-						'site_url' => $this->input->post('site_url'),
+						'url' => $this->input->post('site_url'),
 					));
 
 					$this->_create_file_env(array(
 						'ci_env'   => 'production',
+						'key'      => $this->key,
 						'site_url' => $this->input->post('site_url'),
 						'db_host'  => $this->input->post('db_host'),
 						'db_port'  => $this->input->post('db_port'),
@@ -386,7 +397,8 @@ class Install extends CI_Controller
 			}
 		}
 
-		else {
+		else
+		{
 			$this->_view('welcome');
 		}
 	}
@@ -400,18 +412,26 @@ class Install extends CI_Controller
 	}
 
 
+	protected function _create_file_dbconfig($configs) 
+	{
+		$content = cdb($configs);
+		$file = $this->app_path . 'config/database.php';
+		//write_file($file, $content);
+	}
+
+
 	protected function _create_file_config($configs) 
 	{
 		$content = cfile($configs);
-		$file = FCPATH.'app/config/config.php';
-		write_file($file, $content);
+		$file = $this->app_path . 'config/config.php';
+		//write_file($file, $content);
 	}
 
 
 	protected function _create_file_env($configs)
 	{
 		$content = env($configs);
-		$file = FCPATH . ".env";
+		$file = FCPATH . '.env';
 		write_file($file, $content);
 	}
 

@@ -39,7 +39,7 @@
 				<div class="col-sm-9">
 					<input type="text" name="db_user" class="form-control" required/>
 					<small class="text-muted">Database user</small><br/>
-					<small class="text-muted">Example : YourName</small>
+					<small class="text-muted">Example : root</small>
 				</div>
 			</div>
 			<br/>

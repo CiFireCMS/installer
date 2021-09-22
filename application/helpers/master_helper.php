@@ -1,15 +1,135 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-function cfile($data) {
-  $en_key   = $data['key'];
-  $date     = date('d-M-Y h:i:s');
-
+function cdb($conf) {
+$db_host = $conf['db_host'];
+$db_user = $conf['db_user'];
+$db_pass = $conf['db_pass'];
+$db_name = $conf['db_name'];
+$db_port = $conf['db_port'];
 $content = <<<EOS
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /*
-| Install date  : {$date}
-*/
+  | -------------------------------------------------------------------
+  | DATABASE CONNECTIVITY SETTINGS
+  | -------------------------------------------------------------------
+  | This file will contain the settings needed to access your database.
+  |
+  | For complete instructions please consult the 'Database Connection'
+  | page of the User Guide.
+  |
+  | -------------------------------------------------------------------
+  | EXPLANATION OF VARIABLES
+  | -------------------------------------------------------------------
+  |
+  |	['dsn']      The full DSN string describe a connection to the database.
+  |	['hostname'] The hostname of your database server.
+  |	['username'] The username used to connect to the database
+  |	['password'] The password used to connect to the database
+  |	['database'] The name of the database you want to connect to
+  |	['dbdriver'] The database driver. e.g.: mysqli.
+  |			     Currently supported:
+  |				 cubrid, ibase, mssql, mysql, mysqli, oci8,
+  |				 odbc, pdo, postgre, sqlite, sqlite3, sqlsrv
+  |	['dbprefix'] You can add an optional prefix, which will be added
+  |				 to the table name when using the  Query Builder class
+  |	['pconnect'] TRUE/FALSE - Whether to use a persistent connection
+  |	['db_debug'] TRUE/FALSE - Whether database errors should be displayed.
+  |	['cache_on'] TRUE/FALSE - Enables/disables query caching
+  |	['cachedir'] The path to the folder where cache files should be stored
+  |	['char_set'] The character set used in communicating with the database
+  |	['dbcollat'] The character collation used in communicating with the database
+  |				 NOTE: For MySQL and MySQLi databases, this setting is only used
+  | 				 as a backup if your server is running PHP < 5.2.3 or MySQL < 5.0.7
+  |				 (and in table creation queries made with DB Forge).
+  | 				 There is an incompatibility in PHP with mysql_real_escape_string() which
+  | 				 can make your site vulnerable to SQL injection if you are using a
+  | 				 multi-byte character set and are running versions lower than these.
+  | 				 Sites using Latin-1 or UTF-8 database character set and collation are unaffected.
+  |	['swap_pre'] A default table prefix that should be swapped with the dbprefix
+  |	['autoinit'] Whether or not to automatically initialize the database.
+  |	['encrypt']  Whether or not to use an encrypted connection.
+  |	['compress'] Whether or not to use client compression (MySQL only)
+  |	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
+  |							- good for ensuring strict SQL while developing
+  |	['failover'] array - A array with 0 or more data for connections if the main should fail.
+  |	['save_queries'] TRUE/FALSE - Whether to "save" all executed queries.
+  | 				NOTE: Disabling this will also effectively disable both
+  | 				\$this->db->last_query() and profiling of DB queries.
+  | 				When you run a query, with this setting set to TRUE (default),
+  | 				CodeIgniter will store the SQL statement for debugging purposes.
+  | 				However, this may cause high memory usage, especially if you run
+  | 				a lot of SQL queries ... disable this to avoid that problem.
+  |
+  | The \$active_group variable lets you choose which connection group to
+  | make active.  By default there is only one group (the 'default' group).
+  |
+  | The \$query_builder variables lets you determine whether or not to load
+  | the query builder class.
+  */
 
+\$active_group  = 'default';
+\$query_builder = TRUE;
+
+\$_dbhost = '{$db_host}';
+\$_dbuser = '{$db_user}';
+\$_dbpass = '{$db_pass}';
+\$_dbname = '{$db_name}';
+\$_dbport = '{$db_port}';
+
+
+\$db['default'] = array(
+	'dsn'	   => "mysql:host=\$_dbhost;port=\$_dbport;dbname=\$_dbname;charset=utf8;",
+	'hostname' => \$_dbhost,
+	'username' => \$_dbuser,
+	'password' => \$_dbpass,
+	'database' => \$_dbname,
+	'dbdriver' => 'pdo',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt'  => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+\$db['mysqli'] = array(
+	'port'     => \$_dbport,
+	'hostname' => \$_dbhost,
+	'username' => \$_dbuser,
+	'password' => \$_dbpass,
+	'database' => \$_dbname,
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt'  => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+EOS;
+return $content;
+}
+
+function cfile($data) {
+$url     = $data['url'];
+$en_key  = $data['key'];
+$date    = date('d-M-Y h:i:s');
+$content = <<<EOS
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -32,16 +152,7 @@ $content = <<<EOS
 | a PHP script and you can easily do that on your own.
 |
 */
-if (empty(\$_SERVER['BASE_URL']))
-{
-    \$config['base_url'] = (\$_SERVER['SERVER_PORT'] == 443 ? 'https' : 'http') . "://{\$_SERVER['HTTP_HOST']}" . str_replace(basename(\$_SERVER['SCRIPT_NAME']), "", \$_SERVER['SCRIPT_NAME']);
-} 
-else
-{
-    \$config['base_url'] = \$_SERVER['BASE_URL'];
-}
-
-
+\$config['base_url'] = '{$url}';
 
 /*
 |--------------------------------------------------------------------------
@@ -550,36 +661,33 @@ return $content;
 
 
 
-function env($conf)
-{
-    $ci_env  = $conf['ci_env'];
-    $site_url= $conf['site_url'];
+function env($conf) {
+$ci_env   = $conf['ci_env'];
+$site_url = $conf['site_url'];
+$key      = $conf['key'];
 
-    $db_conn = 'mysqli';
-    $db_host = $conf['db_host'];
-    $db_user = $conf['db_user'];
-    $db_pass = $conf['db_pass'];
-    $db_name = $conf['db_name'];
-    $db_port = $conf['db_port'];
+$db_host = $conf['db_host'];
+$db_name = $conf['db_name'];
+$db_user = $conf['db_user'];
+$db_pass = $conf['db_pass'];
+$db_port = $conf['db_port'];
 
 $content = <<< EOS
 CI_ENV={$ci_env}
 BASE_URL={$site_url}
+ENCRYPTION_KEY={$key}
 
-DB_CONN={$db_conn}
 DB_HOST={$db_host}
-DB_PORT={$db_port}
 DB_NAME={$db_name}
 DB_USER={$db_user}
 DB_PASS={$db_pass}
+DB_PORT={$db_port}
 EOS;
-  
-    return $content;
+return $content;
 }
 
 
-function setting_value_sitemap()
-{
+function setting_value_sitemap(){
     $str = htmlspecialchars('<form id="_formSiteMapz" method="POST" action="" class="form-inline">
   <input id="_csrf" type="hidden" name="csrf_name"/>
   <div class="input-group">
