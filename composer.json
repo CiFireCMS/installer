@@ -7,11 +7,5 @@
     "support": {
         "source": "https://github.com/CiFireCMS/installer"
     },
-    "minimum-stability": "dev",
-    "require": {
-        "codeigniter/framework": "~3.1"
-    },
-    "suggest": {
-        "paragonie/random_compat": "Provides better randomness in PHP 5.x"
-    }
+    "minimum-stability": "dev"
 }
